@@ -7,9 +7,11 @@ import {
   Delete,
   Put,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
+import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 
 @Controller('users')
 export class UsersController {
@@ -35,12 +37,14 @@ export class UsersController {
     return await this.usersService.findByUsername(username);
   } 
 
+  @UseGuards(AccessTokenGuard)
   @Put(':id')
   @HttpCode(204)
   async update(@Param('id') id, @Body() user: Partial<User>): Promise<void> {
     return await this.usersService.update(id, user);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   @HttpCode(204)
   async remove(@Param('id') id): Promise<void> {
