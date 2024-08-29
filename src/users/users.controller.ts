@@ -30,6 +30,11 @@ export class UsersController {
     return await this.usersService.findOne(id);
   }
 
+  @Get('/name/:username')
+  async findByUsername(@Param('username') username): Promise<User> {
+    return await this.usersService.findByUsername(username);
+  } 
+
   @Put(':id')
   @HttpCode(204)
   async update(@Param('id') id, @Body() user: Partial<User>): Promise<void> {

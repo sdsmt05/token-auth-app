@@ -34,7 +34,7 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async findOne(id) {
+  async findOne(id): Promise<any> {
     const user =
       ObjectId.isValid(id) && (await this.usersRepository.findOne(id));
     // const user = await this.usersRepository.findOne(id);
@@ -42,6 +42,15 @@ export class UsersService {
       throw new NotFoundException();
     }
     return await this.usersRepository.findOne(id);
+  }
+
+  async findByUsername(username): Promise<any> {
+    const user =
+      (await this.usersRepository.findOneBy({username: username}));
+      // if (!user) {
+      //   throw new NotFoundException();
+      // }
+      return user;
   }
 
   async update(id, user) {
