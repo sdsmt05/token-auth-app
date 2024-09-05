@@ -8,8 +8,13 @@ import { UsersModule } from 'src/users/users.module';
 import { ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [JwtModule.register({}), UsersModule],
-  controllers: [AuthController],
-  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy, ConfigService],
+    imports: [JwtModule.register({}), UsersModule],
+    controllers: [AuthController],
+    providers: [
+        AuthService,
+        AccessTokenStrategy,
+        RefreshTokenStrategy,
+        ConfigService,
+    ],
 })
 export class AuthModule {}

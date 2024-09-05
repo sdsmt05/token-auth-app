@@ -35,7 +35,7 @@ export class UsersController {
   @Get('/name/:username')
   async findByUsername(@Param('username') username): Promise<User> {
     return await this.usersService.findByUsername(username);
-  } 
+  }
 
   @UseGuards(AccessTokenGuard)
   @Put(':id')
