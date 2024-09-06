@@ -9,9 +9,10 @@ import {
   HttpCode,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { AccessTokenGuard } from '../common/guards/accessToken.guard';
 import { User } from './entities/user.entity';
-import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
+import { UsersService } from './users.service';
+
 
 @Controller('users')
 export class UsersController {

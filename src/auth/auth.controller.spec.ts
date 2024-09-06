@@ -6,75 +6,75 @@ import { AuthDto } from './dto/auth.dto';
 import { Request } from 'express';
 
 const testUserDto: CreateUserDto = {
-  name: 'John Doe',
-  email: 'jdoe@none.com',
-  username: 'jdoe',
-  password: 'somepassword',
-  refreshToken: 'sometoken',
+    name: 'John Doe',
+    email: 'jdoe@none.com',
+    username: 'jdoe',
+    password: 'somepassword',
+    refreshToken: 'sometoken',
 };
 
 const testAuthDto: AuthDto = {
-  username: 'jdoe',
-  password: 'somepassword',
+    username: 'jdoe',
+    password: 'somepassword',
 };
 
 const testRequest: Request = {
-  user: {},
+    user: {},
 } as Request;
 
 const mockAuthService = {
-  signUp: jest.fn(),
-  signIn: jest.fn(),
-  logout: jest.fn(),
-  refreshTokens: jest.fn(),
+    signUp: jest.fn(),
+    signIn: jest.fn(),
+    logout: jest.fn(),
+    refreshTokens: jest.fn(),
 };
 
 describe('AuthController', () => {
-  let authController: AuthController;
+    let authController: AuthController;
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
-      providers: [
-        {
-          provide: AuthService,
-          useValue: mockAuthService,
-        },
-      ],
-    }).compile();
+    beforeEach(async () => {
+        const app: TestingModule = await Test.createTestingModule({
+            controllers: [AuthController],
+            providers: [
+                {
+                    provide: AuthService,
+                    useValue: mockAuthService,
+                },
+            ],
+        }).compile();
 
-    authController = app.get<AuthController>(AuthController);
-  });
-
-  it('should be defined', () => {
-    expect(authController).toBeDefined();
-  });
-
-  describe('signup', () => {
-    it('should call signUp service', () => {
-      authController.signup(testUserDto);
-      expect(mockAuthService.signUp).toHaveBeenCalled();
+        authController = app.get<AuthController>(AuthController);
     });
-  });
 
-  describe('signin', () => {
-    it('should call signIn service', () => {
-      authController.signin(testAuthDto);
-      expect(mockAuthService.signIn).toHaveBeenCalled();
+    it('should be defined', () => {
+        expect(authController).toBeDefined();
     });
-  });
 
-  describe('logout', () => {
-    it('should call logout service', () => {
-      authController.logout(testRequest);
-      expect(mockAuthService.logout).toHaveBeenCalled();
+    describe('signup', () => {
+        it('should call signUp service', () => {
+            authController.signup(testUserDto);
+            expect(mockAuthService.signUp).toHaveBeenCalled();
+        });
     });
-  });
 
-  describe('refresh', () => {
-    it('should call refreshTokens service', () => {
-      authController.refreshTokens(testRequest);
-      expect(mockAuthService.refreshTokens).toHaveBeenCalled();
+    describe('signin', () => {
+        it('should call signIn service', () => {
+            authController.signin(testAuthDto);
+            expect(mockAuthService.signIn).toHaveBeenCalled();
+        });
     });
-  });
+
+    describe('logout', () => {
+        it('should call logout service', () => {
+            authController.logout(testRequest);
+            expect(mockAuthService.logout).toHaveBeenCalled();
+        });
+    });
+
+    describe('refresh', () => {
+        it('should call refreshTokens service', () => {
+            authController.refreshTokens(testRequest);
+            expect(mockAuthService.refreshTokens).toHaveBeenCalled();
+        });
+    });
 });

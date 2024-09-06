@@ -37,7 +37,6 @@ export class UsersService {
     async findOne(id): Promise<any> {
         const user =
             ObjectId.isValid(id) && (await this.usersRepository.findOne(id));
-        // const user = await this.usersRepository.findOne(id);
         if (!user) {
             throw new NotFoundException();
         }
